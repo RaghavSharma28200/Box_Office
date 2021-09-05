@@ -21,7 +21,6 @@ const { show,loading,error} = useShow(id)
   if (error) {
     return <div>Error Occured :{error}</div>;
   }
-  console.log(show);
   return (
     <ShowPageWrapper>
       <ShowMainData
