@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import ActorGrid from '../components/actor/ActorGrid';
 import MainPageLayout from '../components/MainPageLayout';
+import CustomRadio from '../components/show/CustomRadio';
 import ShowGrid from '../components/show/ShowGrid';
 import { apiGet } from '../misc/config';
+import { useLastQuery } from '../misc/custom-hook';
+import {
+  RadioInputsWrapper,
+  SearchButtonWrapper,
+  SearchInput,
+} from './Home.styled';
 
 const Home = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useLastQuery();
   const [results, setResults] = useState(null);
   const [searchOption, setSearchOption] = useState('shows');
 
   const isShowsSearch = searchOption === 'shows';
   const onSearch = () => {
-    //  fetch(`https://api.tvmaze.com/search/shows?q=${input}`).then(r=>r.json()).then(result=>{
-    //      console.log(result)
-    //      setResults(result)
-    //  })
     apiGet(`/search/${searchOption}?q=${input}`).then(result => {
-    //   console.log(result);
       setResults(result);
     });
   };
   const onInputChange = ev => {
-    //  console.log(ev.target.value)
     setInput(ev.target.value);
   };
   const onKeyDown = ev => {
@@ -34,7 +35,11 @@ const Home = () => {
       return <div>No Result</div>;
     }
     if (results && results.length > 0) {
-      return results[0].show ?  <ShowGrid data={results} /> : <ActorGrid data={results}/>
+      return results[0].show ? (
+        <ShowGrid data={results} />
+      ) : (
+        <ActorGrid data={results} />
+      );
     }
     return null;
   };
@@ -44,38 +49,38 @@ const Home = () => {
   console.log(searchOption);
   return (
     <MainPageLayout>
-      <input
+      <SearchInput
         type="text"
         onChange={onInputChange}
         onKeyDown={onKeyDown}
         placeholder="Search For Something"
         value={input}
       />
-      <div>
-        <label htmlFor="shows-search">
-          Shows
-          <input
-            type="radio"
+      <RadioInputsWrapper>
+        <div>
+          <CustomRadio
+            label="Shows"
             id="shows-search"
             value="shows"
             onChange={onRadioChange}
             checked={isShowsSearch}
           />
-        </label>
-        <label htmlFor="shows-search">
-          Actors
-          <input
-            type="radio"
+        </div>
+        <div>
+          <CustomRadio
+            label="Actors"
             id="actors-search"
             value="people"
             onChange={onRadioChange}
             checked={!isShowsSearch}
           />
-        </label>
-      </div>
-      <button type="button" onClick={onSearch}>
-        Search
-      </button>
+        </div>
+      </RadioInputsWrapper>
+      <SearchButtonWrapper>
+        <button type="button" onClick={onSearch}>
+          Search
+        </button>
+      </SearchButtonWrapper>
       {renderResults()}
     </MainPageLayout>
   );
