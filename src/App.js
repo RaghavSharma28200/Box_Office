@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Switch , Route } from 'react-router-dom'
+import Home from './pages/Home';
+import Show from './pages/Show';
+import Starred from './pages/Starred';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    
+      <Switch>
+      <Route exact path = "/">
+       <Home/>
+      </Route>
+      <Route exact path = "/starred">
+       <Starred/>
+      </Route>
+      <Route exact path = '/show/:id'>
+       <Show/>
+      </Route>
+      <Route>
+        404 not found
+      </Route>
+    </Switch>
     </div>
   );
 }
 
 export default App;
+// useEffect(()=>{
+// console.log(render)
+// return ()=>{
+//   // it return before the comonent will unmount and update 
+//   console.log(exit)
+// }
+// },[array])
