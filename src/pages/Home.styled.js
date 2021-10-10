@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SearchInput = styled.input`
   display: block;
@@ -32,7 +32,7 @@ export const RadioInputsWrapper = styled.div`
 export const SearchButtonWrapper = styled.div`
   text-align: center;
   margin-bottom: 35px;
-  
+
   button {
     color: #fff;
     background-color: ${({ theme }) => theme.mainColors.blue};

@@ -15,4 +15,4 @@ export const TitleWrapper = styled.div`
     color: ${({ theme }) => theme.mainColors.dark};
     margin: 0;
   }
-  `;
+`;

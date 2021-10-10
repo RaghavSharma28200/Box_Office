@@ -6,7 +6,7 @@ import { FlexGrid } from '../styled';
 import IMAGE_NOT_FOUND from '../../images/not-found.png';
 
 const ActorGrid = ({ data }) => {
-    console.log('data',data)
+    // console.log('data',data)
   return (
     <FlexGrid>
       {data.map(({person})=> (
